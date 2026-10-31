@@ -82,3 +82,4 @@ def root():
         "health": "/api/health",
         "model_status": "/api/model/status"
     }
+

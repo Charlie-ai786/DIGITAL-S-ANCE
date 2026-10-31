@@ -43,27 +43,33 @@ export const HauntedArchive: React.FC = () => {
   const [sortOrder, setSortOrder] = useState<'newest' | 'oldest'>('newest');
   const [copiedId, setCopiedId] = useState<string | null>(null);
 
-  const fetchArchive = async () => {
-    try {
-      setLoading(true);
-      setError(null);
-      const res = await api.getStories({
-        search: searchTerm || undefined,
-        spirit: selectedSpirit !== 'all' ? selectedSpirit : undefined,
-        tone: selectedTone !== 'all' ? selectedTone : undefined,
-        sort: sortOrder,
-      });
-      setStories(res);
-    } catch (err: unknown) {
-      const msg = err instanceof Error ? err.message : 'Failed to retrieve archive.';
-      setError(msg);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    fetchArchive();
+    let isMounted = true;
+    const loadArchive = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const res = await api.getStories({
+          search: searchTerm || undefined,
+          spirit: selectedSpirit !== 'all' ? selectedSpirit : undefined,
+          tone: selectedTone !== 'all' ? selectedTone : undefined,
+          sort: sortOrder,
+        });
+        if (isMounted) setStories(res);
+      } catch (err: unknown) {
+        if (isMounted) {
+          const msg = err instanceof Error ? err.message : 'Failed to retrieve archive.';
+          setError(msg);
+        }
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    };
+
+    loadArchive();
+    return () => {
+      isMounted = false;
+    };
   }, [searchTerm, selectedSpirit, selectedTone, sortOrder]);
 
   const handleDelete = async (id: string, e: React.MouseEvent) => {

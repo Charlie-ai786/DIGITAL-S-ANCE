@@ -39,3 +39,4 @@ def trigger_model_load():
 
     threading.Thread(target=ai_service.load_model, daemon=True).start()
     return {"message": f"Started loading weights for {ai_service.model_id} on {ai_service.device}.", "status": "loading"}
+

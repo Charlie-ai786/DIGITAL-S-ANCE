@@ -251,3 +251,4 @@ export const LandingPage: React.FC<Props> = ({ onOpenWhisper }) => {
     </div>
   );
 };
+

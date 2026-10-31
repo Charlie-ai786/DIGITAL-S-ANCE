@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
@@ -18,7 +18,7 @@ export function App() {
   const [modelStatus, setModelStatus] = useState<ModelStatus | null>(null);
   const [isWhisperOpen, setIsWhisperOpen] = useState(false);
 
-  const fetchModelStatus = async () => {
+  const fetchModelStatus = useCallback(async () => {
     try {
       const data = await api.getModelStatus();
       setModelStatus(data);
@@ -35,13 +35,36 @@ export function App() {
         max_new_tokens: 700,
       });
     }
-  };
+  }, []);
 
   useEffect(() => {
-    fetchModelStatus();
-    // Poll status periodically (every 10s) to reflect weight loading progress
-    const interval = setInterval(fetchModelStatus, 10000);
-    return () => clearInterval(interval);
+    let ignore = false;
+    async function checkStatus() {
+      try {
+        const data = await api.getModelStatus();
+        if (!ignore) setModelStatus(data);
+      } catch {
+        if (!ignore) {
+          setModelStatus({
+            model_id: 'Qwen/Qwen2.5-3B-Instruct',
+            is_loaded: false,
+            status: 'unloaded',
+            device: 'unknown',
+            dtype: 'unknown',
+            generation_available: false,
+            error_message: 'Backend API connection pending or model unloaded.',
+            max_new_tokens: 700,
+          });
+        }
+      }
+    }
+
+    checkStatus();
+    const interval = setInterval(checkStatus, 10000);
+    return () => {
+      ignore = true;
+      clearInterval(interval);
+    };
   }, []);
 
   return (

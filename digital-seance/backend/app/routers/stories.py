@@ -164,3 +164,4 @@ def attach_alternate_ending(
     db.commit()
     db.refresh(story)
     return StoryResponse(**story.to_dict())
+

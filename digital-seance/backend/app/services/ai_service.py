@@ -527,3 +527,4 @@ class AIService:
         return title, story_body
 
 ai_service = AIService()
+

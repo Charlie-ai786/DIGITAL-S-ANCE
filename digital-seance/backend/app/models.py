@@ -32,3 +32,4 @@ class Story(Base):
             "duration_seconds": self.duration_seconds,
             "alternate_ending": self.alternate_ending
         }
+

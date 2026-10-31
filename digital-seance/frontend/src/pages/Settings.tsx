@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Cpu,
   Activity,
@@ -25,11 +25,7 @@ export const Settings: React.FC<Props> = ({ modelStatus, onRefreshModel }) => {
   const [audioActive, setAudioActive] = useState(soundService.getStatus());
   const [pingSuccess, setPingSuccess] = useState<boolean | null>(null);
 
-  useEffect(() => {
-    fetchHealth();
-  }, []);
-
-  const fetchHealth = async () => {
+  const fetchHealth = useCallback(async () => {
     try {
       const data = await api.getHealth();
       setHealth(data);
@@ -37,7 +33,29 @@ export const Settings: React.FC<Props> = ({ modelStatus, onRefreshModel }) => {
     } catch {
       setPingSuccess(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    let ignore = false;
+    async function loadHealth() {
+      try {
+        const data = await api.getHealth();
+        if (!ignore) {
+          setHealth(data);
+          setPingSuccess(true);
+        }
+      } catch {
+        if (!ignore) {
+          setPingSuccess(false);
+        }
+      }
+    }
+
+    loadHealth();
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   const handleLoadModel = async () => {
     try {

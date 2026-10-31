@@ -33,3 +33,4 @@ Thumbs.db
 # Large Model Cache (Hugging Face)
 hf_cache/
 .cache/
+

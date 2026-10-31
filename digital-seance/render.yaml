@@ -52,3 +52,4 @@ services:
     envVars:
       - key: VITE_API_BASE_URL
         value: https://digital-seance-backend.onrender.com
+

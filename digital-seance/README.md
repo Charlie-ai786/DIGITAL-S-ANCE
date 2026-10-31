@@ -282,3 +282,4 @@ This project includes a production-ready `render.yaml` specification for deployi
 - **Application Code:** Licensed under the [Apache License 2.0](LICENSE).
 - **AI Model:** [Qwen/Qwen2.5-3B-Instruct](https://huggingface.co/Qwen/Qwen2.5-3B-Instruct) developed by the Qwen Team, Alibaba Cloud, under the Apache 2.0 License.
 - **Hacktoberfest:** Created for Hacktoberfest 2026 Week 4: *Ghost in the Machine*.
+

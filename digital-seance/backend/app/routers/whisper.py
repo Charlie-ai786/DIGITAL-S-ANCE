@@ -30,3 +30,4 @@ def summon_whisper(req: WhisperRequest):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"The machine could not channel the whisper: {str(e)}"
         )
+

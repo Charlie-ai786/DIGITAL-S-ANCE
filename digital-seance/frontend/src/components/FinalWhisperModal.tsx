@@ -204,3 +204,4 @@ export const FinalWhisperModal: React.FC<Props> = ({ isOpen, onClose }) => {
     </AnimatePresence>
   );
 };
+

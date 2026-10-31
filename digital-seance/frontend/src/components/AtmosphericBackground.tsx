@@ -116,3 +116,4 @@ export const AtmosphericBackground: React.FC = () => {
     </div>
   );
 };
+
