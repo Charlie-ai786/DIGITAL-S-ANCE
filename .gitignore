@@ -1,0 +1,35 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments & Virtual Envs
+.env
+.venv
+env/
+venv/
+
+# Python Testing & Cache
+.pytest_cache/
+.coverage
+
+# Database & SQLite
+*.db
+*.sqlite3
+*.sqlite
+
+# Node & Frontend Build
+**/node_modules/
+**/dist/
+.oxlintrc.json
+npm-debug.log*
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Large Model Cache (Hugging Face)
+hf_cache/
+.cache/

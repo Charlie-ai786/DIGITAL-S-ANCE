@@ -1,0 +1,42 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environments & Virtual Envs
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Python Testing & Cache
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Database & SQLite
+*.db
+*.sqlite3
+*.sqlite
+digital_seance.db
+
+# Node & Frontend Build
+node_modules/
+frontend/dist/
+frontend/node_modules/
+.eslintcache
+.oxlintrc.json
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS & Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Large Model Cache (Hugging Face)
+hf_cache/
+.cache/

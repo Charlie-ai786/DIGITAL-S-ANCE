@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+@theme {
+  --color-seance-bg: #08090D;
+  --color-seance-bg2: #11131B;
+  --color-seance-card: #171923;
+  --color-seance-primary: #A78BFA;
+  --color-seance-secondary: #39E6B0;
+  --color-seance-muted: #9CA3AF;
+  --color-seance-text: #F5F3FF;
+  --color-seance-warning: #D97757;
+}
+
+@layer base {
+  body {
+    background-color: #08090D;
+    color: #F5F3FF;
+    font-family: 'Cinzel', 'Spectral', 'Georgia', serif, system-ui, -apple-system;
+    overflow-x: hidden;
+  }
+}
+
+/* Atmospheric Glows & Animations */
+@keyframes candleFlicker {
+  0%, 100% { opacity: 0.95; filter: drop-shadow(0 0 15px rgba(167, 139, 250, 0.45)); }
+  25% { opacity: 0.88; filter: drop-shadow(0 0 10px rgba(167, 139, 250, 0.35)); }
+  50% { opacity: 1; filter: drop-shadow(0 0 22px rgba(167, 139, 250, 0.55)); }
+  75% { opacity: 0.92; filter: drop-shadow(0 0 14px rgba(167, 139, 250, 0.4)); }
+}
+
+@keyframes spectralPulse {
+  0%, 100% { box-shadow: 0 0 20px rgba(57, 230, 176, 0.15), inset 0 0 15px rgba(57, 230, 176, 0.05); }
+  50% { box-shadow: 0 0 35px rgba(57, 230, 176, 0.3), inset 0 0 25px rgba(57, 230, 176, 0.1); }
+}
+
+@keyframes fogDrift {
+  0% { transform: translateX(-5%) translateY(0) scale(1); }
+  50% { transform: translateX(5%) translateY(-2%) scale(1.05); }
+  100% { transform: translateX(-5%) translateY(0) scale(1); }
+}
+
+@keyframes subtleGlitch {
+  0%, 95%, 100% { transform: translate(0); filter: none; }
+  96% { transform: translate(-1.5px, 0.5px); filter: hue-rotate(90deg); }
+  98% { transform: translate(1.5px, -0.5px); filter: hue-rotate(-90deg); }
+}
+
+.candle-glow {
+  animation: candleFlicker 3s infinite ease-in-out;
+}
+
+.spectral-glow {
+  animation: spectralPulse 4s infinite ease-in-out;
+}
+
+.fog-layer {
+  animation: fogDrift 20s infinite ease-in-out;
+}
+
+.glitch-hover:hover {
+  animation: subtleGlitch 0.4s ease-in-out infinite alternate;
+}
+
+/* Custom Gothic Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #08090D;
+}
+::-webkit-scrollbar-thumb {
+  background: #171923;
+  border: 1px solid rgba(167, 139, 250, 0.3);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #A78BFA;
+}

@@ -1,0 +1,54 @@
+services:
+  # Backend FastAPI Web Service
+  - type: web
+    name: digital-seance-backend
+    env: python
+    region: oregon
+    plan: starter
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: MODEL_ID
+        value: Qwen/Qwen2.5-3B-Instruct
+      - key: MODEL_DEVICE
+        value: auto
+      - key: MODEL_DTYPE
+        value: auto
+      - key: MAX_NEW_TOKENS
+        value: "700"
+      - key: REPETITION_PENALTY
+        value: "1.1"
+      - key: TEMPERATURE
+        value: "0.7"
+      - key: TOP_P
+        value: "0.9"
+      - key: MODEL_LOAD_ON_STARTUP
+        value: "false"
+      - key: DATABASE_URL
+        value: sqlite:////var/data/digital_seance.db
+      - key: FRONTEND_URL
+        value: https://digital-seance.onrender.com
+    disk:
+      name: seance-data
+      mountPath: /var/data
+      sizeGB: 10
+
+  # Frontend Static Site
+  - type: web
+    name: digital-seance-frontend
+    env: static
+    region: oregon
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://digital-seance-backend.onrender.com
